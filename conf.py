@@ -79,6 +79,7 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.ifconfig",
     "sphinx_copybutton",
+    "multiliteral",
 ]
 
 intersphinx_mapping = {
