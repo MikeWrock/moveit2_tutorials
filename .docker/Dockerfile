@@ -27,8 +27,7 @@ RUN colcon build \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
             --event-handlers desktop_notification- status- 
 RUN ccache -s 
-RUN # Update /ros_entrypoint.sh to source our new workspace
-    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#\$ROS_UNDERLAY/setup.bash#g" /ros_entrypoint.sh
+RUN sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#\$ROS_UNDERLAY/setup.bash#g" /ros_entrypoint.sh
 
 ######################### Hello World Tutorial Image  ##########################################
 
