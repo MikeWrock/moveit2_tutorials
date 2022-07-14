@@ -30,7 +30,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     # Update /ros_entrypoint.sh to source our new workspace
     sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/setup.bash#g" /ros_entrypoint.sh
 
-######################### Hello World Tutorial Image  #########################################
+######################### Hello World Tutorial Image  ##########################################
 
 FROM ghcr.io/ros-planning/moveit2_tutorials:${ROS_DISTRO}${BASE_BRANCH} as hello_world_image
 
