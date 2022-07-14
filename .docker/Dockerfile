@@ -17,6 +17,7 @@ COPY . src/moveit2_tutorials
 # Commands are combined in single RUN statement with "apt/lists" folder removal to reduce image size
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
 RUN --mount=type=cache,target=/root/.ccache/ \
+    PATH=/usr/lib/ccache:$PATH && \
     # Fetch required upstream sources for building
     vcs import src < /root/ws_moveit/src/moveit2_tutorials/moveit2_tutorials.repos && \
     . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
@@ -75,7 +76,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
             --event-handlers desktop_notification- status- && \
     ccache -s
 
-######################### Pick and Place (MTC) Image  #########################################
+######################### Pick and Place (MTC) Image  ########################################
 
 FROM planning_around_objects_image as pick_and_place_image
 
