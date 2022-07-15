@@ -13,10 +13,14 @@ on:
       - moveit2_tutorials.repos
       - .docker/**
 <<<<<<< HEAD
+<<<<<<< HEAD
       - doc/tutorials/**
 =======
       - doc/**
 >>>>>>> 16ba70ca2 (refactored docker)
+=======
+      - doc/tutorials/**
+>>>>>>> cb3d71722 (updated scripts to run only when dockerfile changes)
 
 jobs:
   call-docker-base:

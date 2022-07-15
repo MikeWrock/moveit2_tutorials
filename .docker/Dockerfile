@@ -4,6 +4,7 @@
 # Downloads the moveit source code and install remaining debian dependencies
 
 ARG ROS_DISTRO=rolling
+ARG BASE_BRANCH=
 
 ######################### Base Tutorial Image  #################################################
 
