@@ -12,7 +12,11 @@ on:
     paths:
       - moveit2_tutorials.repos
       - .docker/**
+<<<<<<< HEAD
       - doc/tutorials/**
+=======
+      - doc/**
+>>>>>>> 16ba70ca2 (refactored docker)
 
 jobs:
   call-docker-base:
@@ -24,7 +28,7 @@ jobs:
       - call-docker-base
     uses: ./.github/workflows/docker-images.yml
     secrets: inherit
-
+  
 
   delete-untagged:
     runs-on: ubuntu-latest
