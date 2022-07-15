@@ -28,15 +28,13 @@ RUN --mount=type=cache,target=/root/.ccache/ \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
             --event-handlers desktop_notification- status-
-            ## && \
-RUN  \
-    # ccache -s && \ 
-    # Update /ros_entrypoint.sh to source our new workspace
-    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/install/setup.bash#g" /ros_entrypoint.sh
+
+# Update /ros_entrypoint.sh to source our new workspace
+RUN sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/install/setup.bash#g" /ros_entrypoint.sh
 
 ######################### Hello World Tutorial Image  #########################################
 
-FROM ghcr.io/ros-planning/moveit2_tutorials:${ROS_DISTRO}${BASE_BRANCH} as hello_world_image
+FROM ghcr.io/mikewrock/moveit2_tutorials:${ROS_DISTRO}${BASE_BRANCH} as hello_world_image
 
 #Make a new package using the command in the tutorial
 RUN . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
@@ -58,8 +56,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- && \
-    ccache -s
+            --event-handlers desktop_notification- status- 
 
 ######################### Planning Around Objects Image  #######################################
 
@@ -76,8 +73,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- && \
-    ccache -s
+            --event-handlers desktop_notification- status- 
 
 ######################### Pick and Place (MTC) Image  #########################################
 
@@ -107,5 +103,4 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- && \
-    ccache -s
+            --event-handlers desktop_notification- status- 
