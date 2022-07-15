@@ -12,15 +12,7 @@ on:
     paths:
       - moveit2_tutorials.repos
       - .docker/**
-<<<<<<< HEAD
-<<<<<<< HEAD
       - doc/tutorials/**
-=======
-      - doc/**
->>>>>>> 16ba70ca2 (refactored docker)
-=======
-      - doc/tutorials/**
->>>>>>> cb3d71722 (updated scripts to run only when dockerfile changes)
 
 jobs:
   call-docker-base:
@@ -40,7 +32,7 @@ jobs:
       - call-docker-images
     steps:
       - name: Delete Untagged Images
-        if: (github.event_name != 'pull_request') && (github.repository == 'ros-planning/moveit2_tutorials')
+        if: (github.event_name != 'pull_request') && (github.repository == 'mikewrock/moveit2_tutorials')
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
@@ -56,6 +48,6 @@ jobs:
                 }
             }
         env:
-          OWNER: ros-planning
+          OWNER: mikewrock
           PACKAGE_NAME: moveit2_tutorials
           PER_PAGE: 100

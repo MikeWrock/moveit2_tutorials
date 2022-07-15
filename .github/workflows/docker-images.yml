@@ -42,19 +42,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
-<<<<<<< HEAD
-<<<<<<< HEAD
           build-args: |
                 ROS_DISTRO=${{ matrix.ROS_DISTRO }}
                 BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
-=======
-          build-args: ROS_DISTRO=${{ matrix.ROS_DISTRO }}
->>>>>>> 16ba70ca2 (refactored docker)
-=======
-          build-args: |
-                ROS_DISTRO=${{ matrix.ROS_DISTRO }}
-                BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
->>>>>>> cb3d71722 (updated scripts to run only when dockerfile changes)
           target: hello_world_image
           push: ${{ env.PUSH }}
           no-cache: false
@@ -65,19 +55,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
-<<<<<<< HEAD
-<<<<<<< HEAD
           build-args: |
                 ROS_DISTRO=${{ matrix.ROS_DISTRO }}
                 BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
-=======
-          build-args: ROS_DISTRO=${{ matrix.ROS_DISTRO }}
->>>>>>> 16ba70ca2 (refactored docker)
-=======
-          build-args: |
-                ROS_DISTRO=${{ matrix.ROS_DISTRO }}
-                BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
->>>>>>> cb3d71722 (updated scripts to run only when dockerfile changes)
           target: planning_around_objects_image
           push: ${{ env.PUSH }}
           no-cache: false
@@ -88,19 +68,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
-<<<<<<< HEAD
-<<<<<<< HEAD
           build-args: |
                 ROS_DISTRO=${{ matrix.ROS_DISTRO }}
                 BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
-=======
-          build-args: ROS_DISTRO=${{ matrix.ROS_DISTRO }}
->>>>>>> 16ba70ca2 (refactored docker)
-=======
-          build-args: |
-                ROS_DISTRO=${{ matrix.ROS_DISTRO }}
-                BASE_BRANCH=${{ env.BASE_IMAGE_BRANCH }}
->>>>>>> cb3d71722 (updated scripts to run only when dockerfile changes)
           target: pick_and_place_image
           push: ${{ env.PUSH }}
           no-cache: false
