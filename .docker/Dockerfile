@@ -56,7 +56,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- 
+            --event-handlers desktop_notification- status-
 
 ######################### Planning Around Objects Image  #######################################
 
@@ -73,7 +73,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- 
+            --event-handlers desktop_notification- status-
 
 ######################### Pick and Place (MTC) Image  #########################################
 
@@ -103,4 +103,4 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- 
+            --event-handlers desktop_notification- status-
