@@ -9,7 +9,8 @@ ARG BASE_BRANCH=
 ######################### Base Tutorial Image  #################################################
 
 FROM ros:${ROS_DISTRO}-ros-base as base_image
-
+ENV ROS_UNDERLAY /root/ws_moveit/
+WORKDIR $ROS_UNDERLAY
 
 # Copy MoveIt sources from docker context
 COPY . src/moveit2_tutorials
@@ -17,18 +18,21 @@ COPY . src/moveit2_tutorials
 # Commands are combined in single RUN statement with "apt/lists" folder removal to reduce image size
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
 RUN --mount=type=cache,target=/root/.ccache/ \
+    # Enable ccache
+    PATH=/usr/lib/ccache:$PATH && \
     # Fetch required upstream sources for building
     vcs import src < /root/ws_moveit/src/moveit2_tutorials/moveit2_tutorials.repos && \
     . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
-    . "install/setup.sh" &&\
     sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            --event-handlers desktop_notification- status- && \
-    ccache -s && \
+            --event-handlers desktop_notification- status-
+            ## && \
+RUN  \
+    # ccache -s && \ 
     # Update /ros_entrypoint.sh to source our new workspace
-    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/setup.bash#g" /ros_entrypoint.sh
+    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/install/setup.bash#g" /ros_entrypoint.sh
 
 ######################### Hello World Tutorial Image  #########################################
 
