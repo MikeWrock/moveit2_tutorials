@@ -4,12 +4,14 @@
 # Downloads the moveit source code and install remaining debian dependencies
 
 ARG ROS_DISTRO=rolling
-ARG BASE_BRANCH=
 
-######################### Base Tutorial Image  #################################################
+######################### Base Tutorial Image  #########################################
 
 FROM moveit/moveit2:${ROS_DISTRO}-source as base_image
 
+# Export ROS_UNDERLAY for downstream docker containers
+ENV ROS_UNDERLAY /root/ws_moveit/install
+WORKDIR $ROS_UNDERLAY/..
 
 # Copy MoveIt sources from docker context
 COPY . src/moveit2_tutorials
@@ -17,11 +19,12 @@ COPY . src/moveit2_tutorials
 # Commands are combined in single RUN statement with "apt/lists" folder removal to reduce image size
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
 RUN --mount=type=cache,target=/root/.ccache/ \
+    # Enable ccache
     PATH=/usr/lib/ccache:$PATH && \
     # Fetch required upstream sources for building
     vcs import src < /root/ws_moveit/src/moveit2_tutorials/moveit2_tutorials.repos && \
     . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
-    . "install/setup.sh" &&\
+     . "install/setup.sh" &&\
     sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
@@ -49,8 +52,10 @@ RUN rm src/hello_moveit/src/hello_moveit.cpp
 COPY ./doc/tutorials/your_first_project/hello_moveit.cpp src/hello_moveit/src/hello_moveit.cpp
 #Build the tutorial
 RUN --mount=type=cache,target=/root/.ccache/ \
+    # Enable ccache
+    PATH=/usr/lib/ccache:$PATH && \
     . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
-    . "install/setup.sh" &&\
+     . "install/setup.sh" &&\
     sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
@@ -58,7 +63,7 @@ RUN --mount=type=cache,target=/root/.ccache/ \
             --event-handlers desktop_notification- status- && \
     ccache -s
 
-######################### Planning Around Objects Image  #######################################
+######################### Planning Around Objects Image  #########################################
 
 FROM hello_world_image as planning_around_objects_image
 
@@ -67,8 +72,10 @@ RUN rm src/hello_moveit/src/hello_moveit.cpp
 COPY ./doc/tutorials/planning_around_objects/hello_moveit.cpp src/hello_moveit/src/hello_moveit.cpp
 #Build the tutorial
 RUN --mount=type=cache,target=/root/.ccache/ \
+    # Enable ccache
+    PATH=/usr/lib/ccache:$PATH && \
     . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
-    . "install/setup.sh" &&\
+     . "install/setup.sh" &&\
     sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
@@ -76,11 +83,11 @@ RUN --mount=type=cache,target=/root/.ccache/ \
             --event-handlers desktop_notification- status- && \
     ccache -s
 
-######################### Pick and Place (MTC) Image  ########################################
+######################### Pick and Place (MTC) Image  #########################################
 
 FROM planning_around_objects_image as pick_and_place_image
 
-#Make a new package using the command in the tutorial
+#Make a new package using the command in the tuotrial
 RUN . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
     . "install/setup.sh" &&\
     ros2 pkg create \

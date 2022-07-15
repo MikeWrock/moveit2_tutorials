@@ -8,4 +8,8 @@ ament_target_dependencies(collision_scene_example
 install(TARGETS collision_scene_example
     ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
+<<<<<<< HEAD
         RUNTIME DESTINATION lib/${PROJECT_NAME})
+=======
+        RUNTIME DESTINATION lib/${PROJECT_NAME})
+>>>>>>> 8f3e03235 (Tutorial dockerfiles (#463))
