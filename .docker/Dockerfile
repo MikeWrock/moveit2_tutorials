@@ -8,7 +8,7 @@ ARG BASE_BRANCH=
 
 ######################### Base Tutorial Image  #################################################
 
-FROM FROM ros:${ROS_DISTRO}-ros-base as base_image
+FROM ros:${ROS_DISTRO}-ros-base as base_image
 
 
 # Copy MoveIt sources from docker context
