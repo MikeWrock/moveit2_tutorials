@@ -13,18 +13,7 @@ COPY . src/moveit2_tutorials
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
 RUN --mount=type=cache,target=/root/.ccache/ \
     # Fetch required upstream sources for building
-    vcs import src < /root/ws_moveit/src/moveit2_tutorials/.github/upstream.repos && \
-    . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
-    . "install/setup.sh" &&\
-    sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
-    colcon build \
-            --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-            --ament-cmake-args -DCMAKE_BUILD_TYPE=Release \
-            --event-handlers desktop_notification- status- && \
-    ccache -s && \
-    rm -rf /var/lib/apt/lists/* && \
-    # Update /ros_entrypoint.sh to source our new workspace
-    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/install/setup.bash#g" /ros_entrypoint.sh
+    vcs import src < /root/ws_moveit/src/moveit2_tutorials/.github/upstream.repos
 
 ######################### Hello World Tutorial  #########################################
 
@@ -34,7 +23,7 @@ RUN . "/opt/ros/${ROS_DISTRO}/setup.sh" &&\
     cd "src" &&\
     ros2 pkg create \
     --build-type ament_cmake \
-    --dependencies moveit_ros_planning_interface rclcpp \
+    --dependencies moveit_ros_planning_interface moveit_visual_tools rclcpp \
     --node-name hello_moveit hello_moveit
 
 ######################### Planning Around Objects  #######################################
@@ -71,7 +60,9 @@ RUN --mount=type=cache,target=/root/.ccache/ \
     sudo apt update && rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && \
     colcon build \
             --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-            --ament-cmake-args -DCMAKE_BUILD_TYPE=Debug \
+            --ament-cmake-args -DCMAKE_BUILD_TYPE=Release \
             --event-handlers desktop_notification- status- && \
     ccache -s && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    # Update /ros_entrypoint.sh to source our new workspace
+    sed -i "s#/opt/ros/\$ROS_DISTRO/setup.bash#$ROS_UNDERLAY/install/setup.bash#g" /ros_entrypoint.sh
