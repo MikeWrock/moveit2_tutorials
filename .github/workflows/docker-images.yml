@@ -28,7 +28,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and Tutorial Image
+      - name: Build Tutorial Image
         uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
