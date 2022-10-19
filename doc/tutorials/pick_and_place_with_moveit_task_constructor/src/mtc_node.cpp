@@ -268,10 +268,10 @@ mtc::Task MTCTaskNode::createTask()
 
   {
     auto place = std::make_unique<mtc::SerialContainer>("place object");
-    task.properties().exposeTo(place->properties(), { "eef", "group", "ik_frame" });
+    task.properties().exposeTo(place->properties(), { "eef", "hand", "group", "ik_frame" });
     // clang-format off
     place->properties().configureInitFrom(mtc::Stage::PARENT,
-                                          { "eef", "group", "ik_frame" });
+                                          { "eef", "hand", "group", "ik_frame" });
     // clang-format on
 
     /****************************************************
