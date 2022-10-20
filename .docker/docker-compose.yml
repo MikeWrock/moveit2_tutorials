@@ -4,7 +4,7 @@
 
 services:
   cpu:
-    image: ghcr.io/ros-planning/moveit2_tutorials:$DOCKER_IMAGE
+    image: ghcr.io/mikewrock/moveit2_tutorials:$DOCKER_IMAGE
     container_name: moveit2_container
     privileged: true
     network_mode: host
@@ -16,7 +16,7 @@ services:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
   gpu:
-    image: ghcr.io/ros-planning/moveit2_tutorials:$DOCKER_IMAGE
+    image: ghcr.io/mikewrock/moveit2_tutorials:$DOCKER_IMAGE
     container_name: moveit2_container
     privileged: true
     network_mode: host
