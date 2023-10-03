@@ -1,0 +1,5 @@
+repositories:
+  moevit2_tutorials:
+    type: git
+    url: https://github.com/ros-planning/moevit2_tutorials.git
+    version: main

@@ -8,8 +8,9 @@ FROM moveit/moveit2:${ROS_DISTRO}-source as tutorial_image
 
 LABEL org.opencontainers.image.description "This container has working versions of the tutorials discussed here: https://moveit.picknik.ai/main/doc/tutorials/tutorials.html"
 
-# Copy MoveIt sources from docker context
-COPY . src/moveit2_tutorials
+# Use VCS to import the correct branch
+COPY .github/{ROS_DISTRO}.repos /tmp/tutorial.repos
+RUN vcs import src < /tmp/tutorial.repos
 
 # Commands are combined in single RUN statement with "apt/lists" folder removal to reduce image size
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
