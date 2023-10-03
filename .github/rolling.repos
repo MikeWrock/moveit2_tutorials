@@ -1,5 +1,5 @@
 repositories:
-  moevit2_tutorials:
+  moveit2_tutorials:
     type: git
-    url: https://github.com/ros-planning/moevit2_tutorials.git
+    url: https://github.com/ros-planning/moveit2_tutorials.git
     version: main
